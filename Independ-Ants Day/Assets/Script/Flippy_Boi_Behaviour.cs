@@ -83,7 +83,7 @@ public class Flippy_Boi_Behaviour : MonoBehaviour
         
         else if (Timer > 3 && Enter == false && Exit == true)
         {
-            Destroy(gameObject.GetComponent<BoxCollider2D>());
+            Destroy(gameObject.GetComponent<BoxCollider>());
 
             NewDirection = new Vector3(transform.position.x, -10, transform.position.z);
 

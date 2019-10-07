@@ -26,6 +26,11 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime;
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Application.Quit();
+        }
     }
 
     void SpawnSugarCube()
@@ -46,7 +51,7 @@ public class GameManagerScript : MonoBehaviour
         Score = 0;
         Timer = 0;
         Player.GetComponent<Player_Movement>().enabled = true;
-        Player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+        Player.GetComponent<Player_Movement>().Splat.color = new Color(1f, 1f, 1f, 1f);
         Player.GetComponent<Rigidbody2D>().transform.position = new Vector3(3.5f, 3.56f, -2.015f);
         Debug.LogFormat("Restarting");
     }

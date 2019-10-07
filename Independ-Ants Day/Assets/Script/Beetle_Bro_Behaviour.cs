@@ -11,6 +11,9 @@ public class Beetle_Bro_Behaviour : MonoBehaviour
     public float speed;
     public List<GameObject> children = new List<GameObject>();
     public GameManagerScript GMScript;
+    public Animator Anim;
+    public Rigidbody2D RB2D;
+    public SpriteRenderer Splat;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +21,10 @@ public class Beetle_Bro_Behaviour : MonoBehaviour
         GMScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 
         Waypoints = GameObject.Find("Waypoints");
+
+        Anim = GetComponent<Animator>();
+
+        Splat = transform.Find("Splat").GetComponent<SpriteRenderer>();
 
         //Transform[] Waypoint = Waypoints.GetComponentsInChildren<Transform>();
 
@@ -37,6 +44,7 @@ public class Beetle_Bro_Behaviour : MonoBehaviour
         if (transform.position == NewDirection)
         {
             NewDirection = children[Random.Range(0, children.Count)].transform.position;
+            Anim.SetBool("IsMoving", true);
         }
 
         else
@@ -47,13 +55,19 @@ public class Beetle_Bro_Behaviour : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * 8);
             step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, NewDirection, step);
-            
+            Anim.SetBool("IsMoving", true);
+
 
 
 
         }
+        
+        if (GMScript.GameOver == true)
+        {
+            Anim.SetBool("IsMoving", false);
+        }
 
-       
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -65,7 +79,7 @@ public class Beetle_Bro_Behaviour : MonoBehaviour
                 GMScript.GameOver = true;
                 collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 collision.gameObject.GetComponent<Player_Movement>().enabled = false;
-                collision.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+                collision.gameObject.GetComponent<Player_Movement>().Splat.color = new Color(1f, 1f, 1f, 1f);
             }
 
             else

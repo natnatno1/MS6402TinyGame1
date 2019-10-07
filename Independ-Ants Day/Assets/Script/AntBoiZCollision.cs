@@ -6,11 +6,13 @@ public class AntBoiZCollision : MonoBehaviour
 {
     public GameObject AntBoi;
     public GameObject Flippy;
+    public GameManagerScript GMScript;
 
     // Start is called before the first frame update
     void Start()
     {
         Flippy = GameObject.Find("Flippy-Boi-Object");
+        GMScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -18,6 +20,9 @@ public class AntBoiZCollision : MonoBehaviour
     {
         transform.position = AntBoi.transform.position;
     }
+
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -41,5 +46,24 @@ public class AntBoiZCollision : MonoBehaviour
             
 
         }
+
+        else if (collision.gameObject.tag == "Laser")
+        {
+            Debug.LogFormat("HEDEADBITCH");
+        }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == Flippy)
+        {
+            GMScript.GameOver = true;
+            GetComponentInParent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            GetComponentInParent<Player_Movement>().enabled = false;
+            GetComponentInParent<Player_Movement>().Splat.color = new Color(1f, 1f, 1f, 1f);
+            Debug.LogFormat("nfreighreousih87rsyeog");
+        }
+    }
+
+
 }

@@ -15,6 +15,7 @@ public class Spidey_Boi_Behaviour : MonoBehaviour
     public Animator Anim;
     public Vector3 OldEularAngles;
     public GameManagerScript GMScript;
+    public SpriteRenderer Splat;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class Spidey_Boi_Behaviour : MonoBehaviour
         OldEularAngles = transform.rotation.eulerAngles;
         Player = GameObject.Find("Ant-Boi");
         PlayerPosition = Player.transform;
+        Splat = transform.Find("Splat").GetComponent<SpriteRenderer>();
 
 
     }

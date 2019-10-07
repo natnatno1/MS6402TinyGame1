@@ -9,12 +9,16 @@ public class Player_Movement : MonoBehaviour
     public float runSpeed = 3f;
     public Rigidbody2D RB2D;
     public Animator Anim;
+    public SpriteRenderer Splat;
+    public GameManagerScript GMScript;
 
     // Start is called before the first frame update
     void Start()
     {
         RB2D = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
+        Splat = transform.Find("Splat").GetComponent<SpriteRenderer>();
+        GMScript = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -64,14 +68,19 @@ public class Player_Movement : MonoBehaviour
             transform.localEulerAngles = new Vector3(0, 0, 135);
         }
 
-        if (RB2D.velocity.x == 0 && RB2D.velocity.y == 0)
+        if (RB2D.velocity.x == 0 && RB2D.velocity.y == 0 || GMScript.GameOver == false)
         {
             Anim.SetBool("IsMoving", false);
         }
 
-        else if (RB2D.velocity.x > 0 || RB2D.velocity.x < 0 || RB2D.velocity.y > 0 || RB2D.velocity.y < 0)
+        else if (RB2D.velocity.x > 0 || RB2D.velocity.x < 0 || RB2D.velocity.y > 0 || RB2D.velocity.y < 0 && GMScript.GameOver == false)
         {
             Anim.SetBool("IsMoving", true);
+        }
+
+        else if (GMScript.GameOver == true)
+        {
+            Anim.SetBool("IsMoving", false);
         }
 
     }
