@@ -10,6 +10,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject SugarCubes;
     public GameObject Player;
     public bool GameOver;
+    public Canvas InGameUI;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void RestartScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         GameOver = false;
         Score = 0;
         Timer = 0;
@@ -48,5 +49,11 @@ public class GameManagerScript : MonoBehaviour
         Player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
         Player.GetComponent<Rigidbody2D>().transform.position = new Vector3(3.5f, 3.56f, -2.015f);
         Debug.LogFormat("Restarting");
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
+
     }
 }

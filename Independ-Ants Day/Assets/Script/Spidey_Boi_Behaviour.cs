@@ -23,6 +23,9 @@ public class Spidey_Boi_Behaviour : MonoBehaviour
         RB2D = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         OldEularAngles = transform.rotation.eulerAngles;
+        Player = GameObject.Find("Ant-Boi");
+        PlayerPosition = Player.transform;
+
 
     }
 
